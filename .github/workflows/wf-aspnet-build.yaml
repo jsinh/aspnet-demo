@@ -1,0 +1,21 @@
+name: "CI/CD - Build"
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    name: "Build & Push - Docker"
+
+    steps:
+      - name: "Step | Checkout Code"
+        uses: "actions/checkout@v3"
+        continue-on-error: false
+
+      - name: "Step | Build & Push image"
+        id: buildAndPushImage
+        run: |
+          docker build -f ./aspnet-demo/Dockerfile --force-rm . -t deerejsinh/demo-aspnet:latest --platform=linux/amd64
+          docker push deerejsinh/demo-aspnet:latest
+        continue-on-error: false
