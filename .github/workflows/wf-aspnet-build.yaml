@@ -16,6 +16,7 @@ jobs:
       - name: "Step | Build & Push image"
         id: buildAndPushImage
         run: |
+          docker login --username deerejsinh --password ${{secrets.GH_DOCKER_KEY }}
           docker build -f ./aspnet-demo/Dockerfile --force-rm . -t deerejsinh/demo-aspnet:latest --platform=linux/amd64
           docker push deerejsinh/demo-aspnet:latest
         continue-on-error: false
